@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+        .welcome {
+            width: 500px;
+            height: 400px;
+            background-image: url("bookworm.jpg");
+            filter: blur(0.5px);
+            border-radius: 6px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.1);
+            text-align: center;
+            padding: 0 30px 30px;
+            visibility: hidden;
+            transition: transform 0.4s, top 0.3s;
+            z-index: 50;
+        }
+
+        .openwelcome {
+            visibility: visible;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+
+        .welcome h2 {
+            font-size: 38px;
+            font-weight: 800;
+            margin: 30px 0 10px;
+            color: #fff;
+        }
+
+        .welcome button {
+            width: 50%;
+            margin-top: 100px;
+            padding: 10px 0;
+            background: red;
+            color: #fff;
+            border: 0;
+            outline: none;
+            font-size: 18px;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+
+        }
+
+        .welcome p {
+            color: #fff;
+            margin-top: 30px;
+            font-weight: 500;
+            font-size: 20px;
+        }
+
+        section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #232323;
+            overflow: hidden;
+            padding: 100px 20px;
+            box-sizing: border-box;
+            border-radius: 20%;
+        }
+
+        section::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ef3b36;
+            clip-path: circle(65% at 100% -20%);
+        }
+
+        section::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #47aafa;
+            clip-path: circle(35% at 0% 100%);
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .container .card {
+            position: relative;
+            width: 200px;
+            height: 350px;
+            margin: 20px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+        }
+
+        .container .card .imgbx {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            transition: 0.5s ease-in-out;
+        }
+
+
+        .container .card:hover .imgbx {
+            transform: translateY(-100px);
+        }
+
+        .container .card .imgbx img {
+            max-width: 100%;
+            margin: 0 0 20px;
+            transition: 0.5s ease-in-out;
+        }
+
+        .container .card:hover .imgbx img {
+            transform: scale(1.4);
+        }
+
+
+        .container .card .imgbx h2 {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .container .card .content {
+            position: relative;
+            bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: 0.5s transform;
+            visibility: hidden;
+        }
+
+        .container .card:hover .content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(-50px);
+        }
+
+        .container .card .content .price {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px 20px;
+        }
+
+        .container .card .content .price h3 {
+            color: #fff;
+            font-weight: 300;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-right: 10px;
+        }
+
+        .container .card .content .price span {
+            width: 26px;
+            height: 26px;
+            text-align: center;
+            line-height: 24px;
+            display: inline-block;
+            color: #111;
+            background: #fff;
+            border-radius: 4px;
+            font-size: 14px;
+            margin: 0 5px;
+            font-weight: 500;
+            transition: 0.5s;
+            cursor: pointer;
+
+        }
+
+        .container .card .content .price span:hover {
+            background: #9bdc28;
+
+        }
+
+        .container .card .content a {
+            position: relative;
+            top: 10px;
+            display: inline-block;
+            padding: 12px 30px;
+            background: #fff;
+            border-radius: 40px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #111;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: #333;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        nav li {
+            float: left;
+        }
+
+        nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 20px 40px;
+            text-decoration: none;
+        }
+
+        nav li a:hover {
+            background-color: #111;
+        }
+    </style>
+</head>
+<script>
+    function openwelcome() {
+        let welcome = document.getElementById("welcome");
+        welcome.classList.add("openwelcome");
+
+    }
+
+    function closewelcome() {
+        welcome.classList.remove("openwelcome");
+
+    }
+
+    function pay() {
+        window.open("invoice.html");
+    }
+
+</script>
+
+<body onload="openwelcome()">
+    <div class="welcome" id="welcome">
+        <h2>Welcome to Bookworm book store</h2>
+        <p>Here, You can find 10 different books on different genres <br>
+            But you can buy only one book at a time </p>
+        <button type="button" onclick="closewelcome()">OK</button>
+
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="register.html">Register</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <section>
+        <div class="container">
+            <div class="card">
+                <div class="imgbx">
+                    <img src="img1.jpg" alt="" width="140px">
+                    <h2> <br>
+                        A Half baked
+                        love story</h2>
+                </div>
+
+                <div class="content">
+                    <div class="price">
+                        <h3> Price :</h3>
+                        <span>
+                            $30
+                        </span>
+                    </div>
+                    <a href="" onclick="pay()">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="imgbx">
+                    <img src="img2.jpg" alt="" width="120px">
+                    <h2> <br>The Alchemist</h2>
+                </div>
+
+                <div class="content">
+                    <div class="price">
+                        <h3> Price :</h3>
+                        <span>
+                            $30
+                        </span>
+                    </div>
+                    <a href="" onclick="pay()">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="imgbx">
+                    <img src="img3.jpg" alt="" width="100px">
+                    <h2> <br>The girl in <br>
+                        Room 105</h2>
+                </div>
+
+                <div class="content">
+                    <div class="price">
+                        <h3> Price :</h3>
+                        <span>
+                            $30
+                        </span>
+                    </div>
+                    <a href="" onclick="pay()">Buy Now</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="imgbx">
+                    <img src="img4.jpg" alt="" width="130px">
+                    <h2> <br>One Indian <br>
+                        Girl </h2>
+                </div>
+
+                <div class="content">
+                    <div class="price">
+                        <h3> Price :</h3>
+                        <span>
+                            $30
+                        </span>
+                    </div>
+                    <a href="" onclick="pay()">Buy Now</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="imgbx">
+                    <img src="img5.jpg" alt="" width="110px">
+                    <h2> <br>Forever is <br>
+                        a lie </h2>
+                </div>
+
+                <div class="content">
+                    <div class="price">
+                        <h3> Price :</h3>
+                        <span>
+                            $30
+                        </span>
+                    </div>
+                    <a href="" onclick="pay()">Buy Now</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="imgbx">
+                    <img src="img6.jpg" alt="" width="100px">
+                    <h2> <br>The Wife <br>
+                        between us</h2>
+                </div>
+
+                <div class="content">
+                    <div class="price">
+                        <h3> Price :</h3>
+                        <span>
+                            $30
+                        </span>
+                    </div>
+                    <a href="" onclick="pay()">Buy Now</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="imgbx">
+                    <img src="img7.jpg" alt="" width="150px">
+                    <h2> <br>The silent <br>
+                        Patient </h2>
+                </div>
+
+                <div class="content">
+                    <div class="price">
+                        <h3> Price :</h3>
+                        <span>
+                            $30
+                        </span>
+                    </div>
+                    <a href="" onclick="pay()">Buy Now</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="imgbx">
+                    <img src="img8.jpg" alt="" width="150px">
+                    <h2> <br>Think and <br>
+                        Grow rich </h2>
+                </div>
+
+                <div class="content">
+                    <div class="price">
+                        <h3> Price :</h3>
+                        <span>
+                            $30
+                        </span>
+                    </div>
+                    <a href="" onclick="pay()">Buy Now</a>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="imgbx">
+                    <img src="img9.jpg" alt="" width="150px">
+                    <h2> <br>Rich dad <br>
+                        Poor dad </h2>
+                </div>
+
+                <div class="content">
+                    <div class="price">
+                        <h3> Price :</h3>
+                        <span>
+                            $30
+                        </span>
+                    </div>
+                    <a href="" onclick="pay()">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="imgbx">
+                    <img src="img10.jpg" alt="" width="150px">
+                    <h2> <br>One last <br>
+                        stop </h2>
+                </div>
+
+                <div class="content">
+                    <div class="price">
+                        <h3> Price :</h3>
+                        <span>
+                            $30
+                        </span>
+                    </div>
+                    <a href="" onclick="pay()">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
